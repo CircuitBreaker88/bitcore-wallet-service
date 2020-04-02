@@ -41,13 +41,13 @@ var config = {
     btc: {
       livenet: {
         provider: 'insight',
-        url: 'https://insight.innovacoin.info',
-        apiPrefix:'/insight-api-innova'
+        url: 'https://insight.MoneyByte.info',
+        apiPrefix:'/insight-api'
       },
       testnet: {
         provider: 'insight',
-        url: 'https://testnet-insight.innovacoin.info', //Don't exist yet
-        apiPrefix:'/insight-api-innova'
+        url: 'https://testnet-insight.MoneyByte.info', //Don't exist yet
+        apiPrefix:'/insight-api'
         // url: 'http://localhost:3001',
         // Multiple servers (in priority order)
         // url: ['http://a.b.c', 'https://test-insight.bitpay.com:443'],

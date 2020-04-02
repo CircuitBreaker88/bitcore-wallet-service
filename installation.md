@@ -73,11 +73,11 @@ An example of this configuration is:
   blockchainExplorerOpts: {
     livenet: {
       provider: 'insight',
-      url: 'https://insight.innovacoin.info',
+      url: 'https://insight.MoneyByte.info',
     },
     testnet: {
       provider: 'insight',
-      url: 'http://test-insight.innovacoin.info',
+      url: 'http://test-insight.MoneyByte.info',
     },
   }
 ```

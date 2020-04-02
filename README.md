@@ -1,9 +1,9 @@
 
-# bitcore-wallet-service-innova
+# bitcore-wallet-service
 
-[![NPM Package](https://img.shields.io/npm/v/bitcore-wallet-service-innova.svg?style=flat-square)](https://www.npmjs.org/package/bitcore-wallet-service-innova)
-[![Build Status](https://img.shields.io/travis/innovacoin/bitcore-wallet-service-innova.svg?branch=master&style=flat-square)](https://travis-ci.org/innovacoin/bitcore-wallet-service-innova)
-[![Coverage Status](https://coveralls.io/repos/innovacoin/bitcore-wallet-service-innova/badge.svg?branch=master)](https://coveralls.io/r/innovacoin/bitcore-wallet-service-innova?branch=master)
+[![NPM Package](https://img.shields.io/npm/v/bitcore-wallet-service.svg?style=flat-square)](https://www.npmjs.org/package/bitcore-wallet-service)
+[![Build Status](https://img.shields.io/travis/MoneyByte/bitcore-wallet-service.svg?branch=master&style=flat-square)](https://travis-ci.org/MoneyByte/bitcore-wallet-service)
+[![Coverage Status](https://coveralls.io/repos/MoneyByte/bitcore-wallet-service/badge.svg?branch=master)](https://coveralls.io/r/MoneyByte/bitcore-wallet-service?branch=master)
 
 A Multisig HD Bitcore Wallet Service.
 
@@ -12,7 +12,7 @@ A Multisig HD Bitcore Wallet Service.
 Bitcore Wallet Service facilitates multisig HD wallets creation and operation through a (hopefully) simple and intuitive REST API.
 
 BWS can usually be installed within minutes and accommodates all the needed infrastructure for peers in a multisig wallet to communicate and operate – with minimum server trust.
-  
+
 See [Bitcore-wallet-client](https://github.com/bitpay/bitcore-wallet-client) for the *official* client library that communicates to BWS and verifies its response. Also check [Bitcore-wallet](https://github.com/bitpay/bitcore-wallet) for a simple CLI wallet implementation that relies on BWS.
 
 BWS is been used in production enviroments for [Copay Wallet](https://copay.io), [Bitpay App wallet](https://bitpay.com/wallet) and others.  
@@ -21,22 +21,22 @@ More about BWS at https://blog.bitpay.com/announcing-the-bitcore-wallet-suite/
 
 # Getting Started
 ```
- git clone https://github.com/innovacoin/bitcore-wallet-service-innova.git
- cd bitcore-wallet-service-innova && npm start
+ git clone https://github.com/MoneyByte/bitcore-wallet-service.git
+ cd bitcore-wallet-service && npm start
 ```
 
 This will launch the BWS service (with default settings) at `http://localhost:3232/bws/api`.
 
 BWS needs mongoDB. You can configure the connection at `config.js`
 
-BWS supports SSL and Clustering. For a detailed guide on installing BWS with extra features see [Installing BWS](https://github.com/bitpay/bitcore-wallet-service/blob/master/installation.md). 
+BWS supports SSL and Clustering. For a detailed guide on installing BWS with extra features see [Installing BWS](https://github.com/bitpay/bitcore-wallet-service/blob/master/installation.md).
 
 BWS uses by default a Request Rate Limitation to CreateWallet endpoint. If you need to modify it, check defaults.js' `Defaults.RateLimit`
 
 # Using BWS with PM2
 
-BWS can be used with PM2 with the provided `app.js` script: 
- 
+BWS can be used with PM2 with the provided `app.js` script:
+
 ```
   pm2 start app.js --name "bitcoin-wallet-service"
 ```
@@ -70,11 +70,11 @@ Returns:
  * Wallet object. (see [fields on the source code](https://github.com/bitpay/bitcore-wallet-service/blob/master/lib/model/wallet.js)).
 
 `/v1/txhistory/`: Get Wallet's transaction history
- 
+
 Optional Arguments:
  * skip: Records to skip from the result (defaults to 0)
  * limit: Total number of records to return (return all available records if not specified).
- 
+
 Returns:
  * History of incoming and outgoing transactions of the wallet. The list is paginated using the `skip` & `limit` params. Each item has the following fields:
  * action ('sent', 'received', 'moved')
@@ -87,8 +87,8 @@ Returns:
  * creatorName
  * message
  * actions array ['createdOn', 'type', 'copayerId', 'copayerName', 'comment']
-  
- 
+
+
 `/v1/txproposals/`:  Get Wallet's pending transaction proposals and their status
 Returns:
  * List of pending TX Proposals. (see [fields on the source code](https://github.com/bitpay/bitcore-wallet-service/blob/master/lib/model/txproposal.js))
@@ -121,18 +121,18 @@ Optional Arguments:
 
 Returns:
  * The fiat exchange rate.
- 
+
 ## POST Endpoints
 `/v1/wallets/`: Create a new Wallet
 
  Required Arguments:
- * name: Name of the wallet 
- * m: Number of required peers to sign transactions 
+ * name: Name of the wallet
+ * m: Number of required peers to sign transactions
  * n: Number of total peers on the wallet
  * pubKey: Wallet Creation Public key to check joining copayer's signatures (the private key is unknown by BWS and must be communicated
   by the creator peer to other peers).
 
-Returns: 
+Returns:
  * walletId: Id of the new created wallet
 
 
@@ -173,24 +173,24 @@ Returns:
 
 Required Arguments:
  * signatures:  All Transaction's input signatures, in order of appearance.
-  
+
 Returns:
  * TX Proposal object. (see [fields on the source code](https://github.com/bitpay/bitcore-wallet-service/blob/master/lib/model/txproposal.js)). `.status` is probably needed in this case.
-  
+
 `/v1/txproposals/:id/broadcast/`: Broadcast a transaction proposal
- 
+
 Returns:
  * TX Proposal object. (see [fields on the source code](https://github.com/bitpay/bitcore-wallet-service/blob/master/lib/model/txproposal.js)). `.status` is probably needed in this case.
-  
+
 `/v1/txproposals/:id/rejections`: Reject a transaction proposal
- 
+
 Returns:
  * TX Proposal object. (see [fields on the source code](https://github.com/bitpay/bitcore-wallet-service/blob/master/lib/model/txproposal.js)). `.status` is probably needed in this case.
 
 `/v1/addresses/scan`: Start an address scan process looking for activity.
 
  Optional Arguments:
- * includeCopayerBranches: Scan all copayer branches following BIP45 recommendation (defaults to false). 
+ * includeCopayerBranches: Scan all copayer branches following BIP45 recommendation (defaults to false).
 
 `/v1/txconfirmations/`: Subscribe to receive push notifications when the specified transaction gets confirmed.
 Required Arguments:
@@ -208,10 +208,10 @@ Required Arguments:
 
 `/v1/txconfirmations/:txid`: Unsubscribe from transaction `txid` and no longer listen to its confirmation.
 
-   
+
 # Push Notifications
   Recomended to complete config.js file:
-  
+
   * [GCM documentation to get your API key](https://developers.google.com/cloud-messaging/gcm)
   * [Apple's Notification guide to know how to get your certificates for APN](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/Introduction.html)
 
@@ -222,8 +222,3 @@ Required Arguments:
 
 ## DELETE Endpoints
 `/v2/pushnotifications/subscriptions/`: Remove subscriptions for push notifications service from database.
-
- 
-
-
-
